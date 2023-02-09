@@ -1,9 +1,42 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
-console.log(galleryItems);
+const galeryContainer = document.querySelector(".gallery");
+
+const fillcreateGalery = createGalery(galleryItems);
+galeryContainer.insertAdjacentHTML('beforeend', fillcreateGalery);
+
+function createGalery(galleryItems) {
+  return galleryItems
+    .map(({ preview, original, description }) => {
+      return `<div class="gallery__item">
+  <a class="gallery__link" href="large-image.jpg">
+     <img
+      class="gallery__image"
+      src="${preview}"
+       data-source= "${original}"
+       alt="${description}"
+     />
+   </a>
+ </div>`;
+    })
+    .join("");
+}
+
+// console.log(galleryItems);
+// console.log(createGaleryContainer);
+
+galeryContainer.addEventListener('click', onGaleryItemClick);
 
 
+function onGaleryItemClick(event) { 
+ 
+  if (!event.target.classList.contains(`gallery__image`)) {
+    return;
+  }
+    
+     console.log(event.target)
+};
 // Файл gallery-items.js містить масив galleryItems, який містить об'єкти з інформацією про зображення: маленьке (прев`ю), оригінальне (велике) і опис. Ми вже підключили його до кожного з JS-файлів проекту.
 
 // Завдання 1 - галерея зображень
