@@ -30,7 +30,7 @@ galeryContainer.addEventListener('click', onGaleryItemClick);
 
 
 function onGaleryItemClick(event) { 
- 
+  event.preventDefault();
   if (!event.target.classList.contains(`gallery__image`)) {
     return;
   }
