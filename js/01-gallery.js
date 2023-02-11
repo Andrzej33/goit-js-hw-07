@@ -1,10 +1,19 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
+// створюємо посилання на контенер в який помістимо нашу галерею зображень
+
 const galeryContainer = document.querySelector(".gallery");
 
+// створюємо галерею зображень через присвоєння змінній результату роботи функції
+
 const fillcreateGalery = createGalery(galleryItems);
+
+// додаємо галерею зображень в HTML
+
 galeryContainer.insertAdjacentHTML('beforeend', fillcreateGalery);
+
+// прописуємо функцію для створення галереї
 
 function createGalery(galleryItems) {
   return galleryItems
@@ -23,11 +32,12 @@ function createGalery(galleryItems) {
     .join("");
 }
 
-// console.log(galleryItems);
-// console.log(createGaleryContainer);
+
+// Додаємо слухача подій на клік по контейнеру
 
 galeryContainer.addEventListener('click', onGaleryItemClick);
 
+// створюємо функцію для обробки кліку по зображенню
 
 function onGaleryItemClick(event) { 
   event.preventDefault();
@@ -35,8 +45,23 @@ function onGaleryItemClick(event) {
     return;
   }
     
-     console.log(event.target)
+    const instance = basicLightbox.create(`
+    <img src= ${event.target.dataset.source}>
+ `,)
+instance.show()
+
+  document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && instance.visible()) {
+    instance.close()
+   
+  }
+})
+  
 };
+
+
+
+
 // Файл gallery-items.js містить масив galleryItems, який містить об'єкти з інформацією про зображення: маленьке (прев`ю), оригінальне (велике) і опис. Ми вже підключили його до кожного з JS-файлів проекту.
 
 // Завдання 1 - галерея зображень
@@ -70,3 +95,8 @@ function onGaleryItemClick(event) {
 // Наступний функціонал не обов'язковий для здавання завдання, але буде хорошою додатковою практикою.
 
 // Додай закриття модального вікна після натискання клавіші Escape. Зроби так, щоб прослуховування клавіатури було тільки доти, доки відкрите модальне вікно. Бібліотека basicLightbox містить метод для програмного закриття модального вікна.
+
+
+
+
+
