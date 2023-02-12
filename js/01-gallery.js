@@ -49,14 +49,21 @@ function onGaleryItemClick(event) {
   // створюємо велике зображення за допомогою бібліотеки
 
   const instance = basicLightbox.create(`
-    <img src= ${event.target.dataset.source}>`);
+    <img src= ${event.target.dataset.source}>`, {
+    onShow: () => {
+        document.addEventListener('keydown', onCloseModal);
+    },
+      onClose: () => {
+        document.removeEventListener('keydown', onCloseModal);
+    },
+    });
   instance.show();
 
   // додаємо закривання модалки по кліку на Esc
 
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && instance.visible()) {
+  function onCloseModal(event) {
+    if (event.key === "Escape") {
       instance.close();
     }
-  });
+  };
 }
